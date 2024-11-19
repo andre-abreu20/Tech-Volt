@@ -18,7 +18,7 @@ export default function Login() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center relative">
       <Image
         src="/assets/images/Fundo Login techVolt.svg"
         alt="Fundo de Login"
@@ -27,17 +27,16 @@ export default function Login() {
         className="absolute inset-0 z-0 w-full h-full"
         priority
       />
+      <h1 className="text-3xl font-bold text-white mb-8 z-10 italic tracking-wider">
+        Login
+      </h1>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="relative z-10 w-full max-w-md mx-4 p-8 bg-white rounded-2xl shadow-lg"
       >
-        <h1 className="text-3xl font-bold text-green-1 mb-8 text-center">
-          Login
-        </h1>
-
-        <form onSubmit={handleSubmit} className="space-y-6 justify-center">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <Input
             label="Email"
             name="email"
