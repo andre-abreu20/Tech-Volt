@@ -4,7 +4,8 @@ export interface InputProps {
   value: string;
   onChange: (value: string) => void;
   name: string;
-  type?: "text" | "email" | "password";
+  type?: "text" | "email" | "password" | "date" | "tel";
+  error?: string;
 }
 
 export interface BotaoProps {
