@@ -1,4 +1,4 @@
-import { InputProps } from "@/types";
+import { InputProps } from "@/types/types";
 import { motion } from "framer-motion";
 
 export default function Input({
@@ -7,6 +7,7 @@ export default function Input({
   value,
   onChange,
   name,
+  type,
 }: InputProps) {
   return (
     <motion.div
@@ -23,7 +24,7 @@ export default function Input({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
         exit={{ opacity: 0, scale: 0 }}
-        type="text"
+        type={type || "text"}
         id={name}
         name={name}
         value={value}

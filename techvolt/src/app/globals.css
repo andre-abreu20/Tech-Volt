@@ -5,11 +5,9 @@
 @tailwind utilities;
 
 :root {
-  /* Cores base */
   --background: #ffffff;
   --foreground: #171717;
 
-  /* Cores do projeto */
   --burnt-yellow: #fff8ee;
   --green-1: #5a955e;
   --green-2: #578c59;
@@ -33,7 +31,6 @@
   }
 }
 
-/* Reset CSS básico */
 @layer base {
   * {
     @apply m-0 p-0 box-border;
