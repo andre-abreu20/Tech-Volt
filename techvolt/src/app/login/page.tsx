@@ -4,6 +4,7 @@ import Input from "@/components/Input/Input";
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Botao from "@/components/Botao/Botao";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -36,7 +37,7 @@ export default function Login() {
           Login
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 justify-center">
           <Input
             label="Email"
             name="email"
@@ -58,6 +59,9 @@ export default function Login() {
             }
             placeholder="Digite sua senha"
           />
+          <Botao type="submit" width="auto">
+            Entrar
+          </Botao>
         </form>
       </motion.div>
     </div>
