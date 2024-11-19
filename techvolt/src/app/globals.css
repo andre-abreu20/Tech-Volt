@@ -1,9 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Arsenal:wght@400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Cores base */
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Cores do projeto */
+  --burnt-yellow: #fff8ee;
+  --green-1: #5a955e;
+  --green-2: #578c59;
+  --green-3: #6bc377;
+  --green-4: #00bf63;
+  --green-5: #cbdcb7;
+  --blue-1: #4f77ad;
+  --blue-2: #2795c5;
+  --orange: #b5582b;
+  --white: #ffffff;
 }
 
+.dark {
+  --background: #171717;
+  --foreground: #ffffff;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-arsenal;
+  }
+}
+
+/* Reset CSS básico */
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  html,
+  body {
+    @apply h-full;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-arsenal font-bold;
+  }
+
+  button {
+    @apply cursor-pointer border-none bg-transparent;
+  }
+
+  a {
+    @apply no-underline text-inherit;
+  }
+
+  ul,
+  ol {
+    @apply list-none;
+  }
+}
