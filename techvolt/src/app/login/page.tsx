@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Botao from "@/components/Botao/Botao";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -12,9 +13,15 @@ export default function Login() {
     password: "",
   });
 
+  const router = useRouter();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Lógica de login aqui
+  };
+
+  const handleRedirect = () => {
+    router.push("/cadastro");
   };
 
   return (
@@ -22,10 +29,9 @@ export default function Login() {
       <Image
         src="/assets/images/Fundo Login techVolt.svg"
         alt="Fundo de Login"
-        layout="fill"
-        objectFit="cover"
-        className="absolute inset-0 z-0 w-full h-full"
-        priority
+        className="absolute inset-0 z-0 w-full h-full object-cover"
+        width={1920}
+        height={1080}
       />
       <h1 className="text-3xl font-bold text-white mb-8 z-10 italic tracking-wider">
         Login
@@ -34,7 +40,7 @@ export default function Login() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative z-10 w-full max-w-md mx-4 p-8 bg-white rounded-2xl shadow-lg"
+        className="relative z-10 w-full max-w-md mx-4 p-8 bg-burnt-yellow rounded-2xl shadow-lg"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
           <Input
@@ -58,6 +64,18 @@ export default function Login() {
             }
             placeholder="Digite sua senha"
           />
+          <div className="flex flex-row justify-center w-full">
+            <p>
+              Ainda não tem uma
+              <span
+                onClick={handleRedirect}
+                className="text-blue-2 underline font-bold cursor-pointer mx-1"
+              >
+                conta
+              </span>
+              ?
+            </p>
+          </div>
           <Botao type="submit" width="auto">
             Entrar
           </Botao>

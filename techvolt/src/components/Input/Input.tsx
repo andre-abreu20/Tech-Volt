@@ -8,6 +8,7 @@ export default function Input({
   onChange,
   name,
   type,
+  error,
 }: InputProps) {
   return (
     <motion.div
@@ -30,13 +31,14 @@ export default function Input({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-full px-8 py-3 
-                  border-2 border-transparent
+        className={`w-full rounded-full px-8 py-3 
+                  border-2 ${error ? "border-red-500" : "border-transparent"}
                   focus:outline-none focus:border-green-2 
                   placeholder-gray-400 
                   transition-all duration-300 
-                  shadow-md"
+                  shadow-md`}
       />
+      {error && <span className="text-xs text-red ml-4">{error}</span>}
     </motion.div>
   );
 }
