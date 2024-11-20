@@ -13,4 +13,21 @@ export interface BotaoProps {
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
   width?: string;
+  variant?: "default" | "white";
+}
+
+export interface UserData {
+  nome: string;
+  email: string;
+  telefone: string;
+  dataNascimento: string;
+  senha: string;
+}
+
+export interface CardSustavelProps {
+  energia: number;
+  transporte: number;
+  agua: number;
+  data: string;
+  grauSustentabilidade: number;
 }
