@@ -4,7 +4,7 @@ export interface InputProps {
   value: string;
   onChange: (value: string) => void;
   name: string;
-  type?: "text" | "email" | "password" | "date" | "tel";
+  type?: "text" | "email" | "password" | "date" | "tel" | "number";
   error?: string;
 }
 
@@ -29,5 +29,13 @@ export interface CardSustavelProps {
   transporte: number;
   agua: number;
   data: string;
+  grauSustentabilidade: number;
+}
+
+export interface ResultadoAnaliseData {
+  nome: string;
+  energia: number;
+  transporte: number;
+  agua: number;
   grauSustentabilidade: number;
 }
