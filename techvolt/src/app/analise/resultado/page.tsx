@@ -39,12 +39,12 @@ export default function ResultadoAnalise() {
 
   const getBackgroundImage = (grau: number) => {
     if (grau >= 100)
-      return "/assets/images/Resultado Analise Sustentabilidade 100.svg";
+      return "/assets/images/Resultado Analise Sustentabilidade 100.png";
     if (grau >= 75)
-      return "/assets/images/Resultado Analise Sustentabilidade 75.svg";
+      return "/assets/images/Resultado Analise Sustentabilidade 75.png";
     if (grau >= 50)
-      return "/assets/images/Resultado Analise Sustentabilidade 50.svg";
-    return "/assets/images/Resultado Analise Sustentabilidade 49.svg";
+      return "/assets/images/Resultado Analise Sustentabilidade 50.png";
+    return "/assets/images/Resultado Analise Sustentabilidade 49.png";
   };
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function ResultadoAnalise() {
             className="relative rounded-2xl overflow-hidden min-h-[180px] md:min-h-[200px] lg:min-h-[50%]"
           >
             <Image
-              src="/assets/images/Resultado Analise Energia.svg"
+              src="/assets/images/Resultado Analise Energia.png"
               alt="Energia Background"
               fill
               className="object-cover"
@@ -143,7 +143,7 @@ export default function ResultadoAnalise() {
             className="relative rounded-2xl overflow-hidden min-h-[180px] md:min-h-[200px] lg:min-h-[50%]"
           >
             <Image
-              src="/assets/images/Resultado Analise Transporte.svg"
+              src="/assets/images/Resultado Analise Transporte.png"
               alt="Transporte Background"
               fill
               className="object-cover"
@@ -180,7 +180,7 @@ export default function ResultadoAnalise() {
             className="relative rounded-2xl overflow-hidden min-h-[180px] md:min-h-[200px] lg:min-h-[35%]"
           >
             <Image
-              src="/assets/images/Resultado Analise Agua.svg"
+              src="/assets/images/Resultado Analise Agua.png"
               alt="Água Background"
               fill
               className="object-cover"

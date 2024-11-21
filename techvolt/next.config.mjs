@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     deviceSizes: [640, 768, 1024, 1280, 1600],
-    formats: ["image/webp"],
+    formats: ['image/avif', 'image/webp'],
   },
   webpack(config) {
     config.module.rules.push({
