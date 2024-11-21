@@ -4,6 +4,7 @@ import { useState } from "react";
 import Input from "@/components/Input/Input";
 import { motion, AnimatePresence } from "framer-motion";
 import Botao from "@/components/Botao/Botao";
+import ProtectedRoute from "@/components/RotaProtegida/RotaProtegida";
 
 interface FormData {
   energia: string;
@@ -67,8 +68,9 @@ export default function Analise() {
   };
 
   return (
-    <div
-      className="min-h-screen w-full flex items-center justify-center relative overflow-hidden"
+    <ProtectedRoute>
+      <div
+        className="min-h-screen w-full flex items-center justify-center relative overflow-hidden"
       style={{
         backgroundImage: `url('${backgrounds[step as keyof typeof backgrounds]}')`,
         backgroundSize: "cover",
@@ -122,6 +124,7 @@ export default function Analise() {
           </motion.div>
         </AnimatePresence>
       </div>
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 }

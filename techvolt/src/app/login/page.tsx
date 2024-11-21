@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Botao from "@/components/Botao/Botao";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -14,10 +15,13 @@ export default function Login() {
   });
 
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Lógica de login aqui
+    // Após validar as credenciais
+    login(formData.email);
+    router.push("/analise");
   };
 
   const handleRedirect = () => {

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { User } from "lucide-react";
 import EsqueletoResultado from "@/components/EsqueletoResultado/EsqueletoResultado";
+import ProtectedRoute from "@/components/RotaProtegida/RotaProtegida";
 
 export default function ResultadoAnalise() {
   const [loading, setLoading] = useState(true);
@@ -58,8 +59,9 @@ export default function ResultadoAnalise() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-full bg-burnt-yellow p-4 md:p-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 min-h-[700px] lg:grid-cols-4 gap-4 md:gap-8 max-w-7xl w-full">
+    <ProtectedRoute>
+      <div className="flex items-center justify-center min-h-screen w-full bg-burnt-yellow p-4 md:p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 min-h-[700px] lg:grid-cols-4 gap-4 md:gap-8 max-w-7xl w-full">
         {/* Coluna 1: Perfil e Sustentabilidade */}
         <div className="flex flex-col gap-4 md:gap-8">
           {/* Perfil */}
@@ -222,6 +224,7 @@ export default function ResultadoAnalise() {
           </motion.button>
         </div>
       </div>
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 }
