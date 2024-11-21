@@ -1,6 +1,6 @@
 "use client";
 
-export default function EsqueletoPerfil() {
+export default function EsqueletoCard() {
   return (
     <div className="flex min-h-screen bg-burnt-yellow">
       <div className="flex flex-col items-center justify-center w-[320px] bg-burnt-yellow p-8 text-white"></div>

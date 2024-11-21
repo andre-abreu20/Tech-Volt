@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import Carregando from "../Carregando/Carregando";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -19,7 +20,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   }, [isLoading, isAuthenticated, router]);
 
   if (isLoading) {
-    return <div>Carregando...</div>;
+    return <>{isLoading && <Carregando />}</>;
   }
 
   return isAuthenticated ? <>{children}</> : null;

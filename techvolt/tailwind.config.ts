@@ -30,6 +30,34 @@ const config: Config = {
       fontFamily: {
         arsenal: ["Arsenal", "sans-serif"],
       },
+      keyframes: {
+        sunshine: {
+          '0%': {
+            transform: 'scale(1)',
+            opacity: '0.6'
+          },
+          '100%': {
+            transform: 'scale(1.4)',
+            opacity: '0'
+          }
+        },
+        clouds: {
+          '0%': {
+            transform: 'translateX(15px)'
+          },
+          '50%': {
+            transform: 'translateX(0px)'
+          },
+          '100%': {
+            transform: 'translateX(15px)'
+          }
+        }
+      },
+      animation: {
+        'sunshine': 'sunshine 2s infinite',
+        'clouds-front': 'clouds 8s infinite ease-in-out',
+        'clouds-back': 'clouds 12s infinite ease-in-out'
+      }
     },
   },
   plugins: [],
