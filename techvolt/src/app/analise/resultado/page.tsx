@@ -12,7 +12,6 @@ export default function ResultadoAnalise() {
   const router = useRouter();
   const formatNumber = (value: number, maxDigits: number = 3) => {
     if (value >= Math.pow(10, maxDigits)) {
-      // Se o número for maior que o limite, converte para K, M, B etc
       if (value >= 1000000000) {
         return `${(value / 1000000000).toFixed(1)}B`;
       }
