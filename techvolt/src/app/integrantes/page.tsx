@@ -19,20 +19,19 @@ export default function Integrantes() {
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl md:text-7xl font-bold text-white text-center mb-20"
+          className="text-4xl italic md:text-5xl lg:text-7xl font-bold text-white text-center mb-10 md:mb-20"
         >
           INTEGRANTES DO PROJETO
         </motion.h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-5xl mx-auto">
-          {/* André Luís */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-16 max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="flex flex-col items-center"
           >
-            <div className="relative w-64 h-64 mb-6">
+            <div className="relative w-48 h-48 md:w-64 md:h-64 mb-4 md:mb-6">
               <Image
                 src="/assets/images/Imagem Integrante Andre.svg"
                 alt="André Luís"
@@ -41,17 +40,17 @@ export default function Integrantes() {
               />
             </div>
 
-            <h2 className="text-4xl text-green-1 font-semibold mb-2">
+            <h2 className="text-3xl md:text-4xl text-green-1 font-semibold mb-1 md:mb-2">
               André Luís
             </h2>
-            <p className="text-2xl text-green-1 mb-2 font-bold">
+            <p className="text-xl md:text-2xl text-green-1 mb-1 md:mb-2 font-bold">
               Turma: <span className="font-bold">1TDSPH</span>
             </p>
-            <p className="text-2xl text-green-1 mb-6 font-bold">
+            <p className="text-xl md:text-2xl text-green-1 mb-4 md:mb-6 font-bold">
               RM: <span className="font-bold">558159</span>
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex gap-2 md:gap-4">
               <Link
                 href="https://github.com/andre-abreu20"
                 target="_blank"
@@ -60,8 +59,8 @@ export default function Integrantes() {
                 <Image
                   src="/assets/images/Icone GitHub.svg"
                   alt="GitHub André"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                   className="hover:opacity-80 transition-opacity"
                 />
               </Link>
@@ -73,22 +72,20 @@ export default function Integrantes() {
                 <Image
                   src="/assets/images/Icone LinkedIn.svg"
                   alt="LinkedIn André"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                   className="hover:opacity-80 transition-opacity"
                 />
               </Link>
             </div>
           </motion.div>
-
-          {/* Maria Eduarda */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="flex flex-col items-center"
           >
-            <div className="relative w-64 h-64 mb-6">
+            <div className="relative w-48 h-48 md:w-64 md:h-64 mb-4 md:mb-6">
               <Image
                 src="/assets/images/Imagem Integrante Duda.svg"
                 alt="Maria Eduarda"
@@ -97,17 +94,17 @@ export default function Integrantes() {
               />
             </div>
 
-            <h2 className="text-4xl text-green-1 font-semibold mb-2">
+            <h2 className="text-3xl md:text-4xl text-green-1 font-semibold mb-1 md:mb-2">
               Maria Eduarda
             </h2>
-            <p className="text-2xl text-green-1 mb-2 font-bold">
+            <p className="text-xl md:text-2xl text-green-1 mb-1 md:mb-2 font-bold">
               Turma: <span className="font-bold">1TDSPH</span>
             </p>
-            <p className="text-2xl text-green-1 mb-6 font-bold">
+            <p className="text-xl md:text-2xl text-green-1 mb-4 md:mb-6 font-bold">
               RM: <span className="font-bold">558575</span>
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex gap-2 md:gap-4">
               <Link
                 href="https://github.com/dudabrigidio"
                 target="_blank"
@@ -116,8 +113,8 @@ export default function Integrantes() {
                 <Image
                   src="/assets/images/Icone GitHub.svg"
                   alt="GitHub Maria"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                   className="hover:opacity-80 transition-opacity"
                 />
               </Link>
@@ -129,8 +126,8 @@ export default function Integrantes() {
                 <Image
                   src="/assets/images/Icone LinkedIn.svg"
                   alt="LinkedIn Maria"
-                  width={40}
-                  height={40}
+                  width={30}
+                  height={30}
                   className="hover:opacity-80 transition-opacity"
                 />
               </Link>

@@ -58,14 +58,14 @@ export default function ResultadoAnalise() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-full bg-burnt-yellow p-8">
-      <div className="grid grid-cols-4 gap-8 max-w-7xl w-full min-h-[60vh]">
+    <div className="flex items-center justify-center min-h-screen w-full bg-burnt-yellow p-4 md:p-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 min-h-[700px] lg:grid-cols-4 gap-4 md:gap-8 max-w-7xl w-full">
         {/* Coluna 1: Perfil e Sustentabilidade */}
-        <div className="flex flex-col gap-8 h-full">
+        <div className="flex flex-col gap-4 md:gap-8">
           {/* Perfil */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="bg-green-3 rounded-2xl p-6 h-[30%]"
+            className="bg-green-3 rounded-2xl p-6 min-h-[120px] md:min-h-[150px] lg:min-h-[30%]"
           >
             <div className="flex flex-col items-center justify-center h-full">
               <User className="w-12 h-12 text-white mb-2" />
@@ -78,13 +78,14 @@ export default function ResultadoAnalise() {
           {/* Sustentabilidade - %*/}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="relative rounded-2xl overflow-hidden h-[70%]"
+            className="relative rounded-2xl overflow-hidden min-h-[200px] md:min-h-[250px] lg:min-h-[70%]"
           >
             <Image
               src={getBackgroundImage(resultado.grauSustentabilidade)}
               alt="Card da Sustentabilidade"
               fill
               className="object-cover"
+              priority
             />
             <div className="absolute inset-0 flex flex-col items-center justify-between p-8 text-white">
               <span className="text-6xl font-bold">
@@ -96,11 +97,11 @@ export default function ResultadoAnalise() {
         </div>
 
         {/* Coluna 2: Energia */}
-        <div className="flex flex-col gap-8 h-full">
+        <div className="flex flex-col gap-4 md:gap-8">
           {/* Energia */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="relative rounded-2xl overflow-hidden h-[50%]"
+            className="relative rounded-2xl overflow-hidden min-h-[180px] md:min-h-[200px] lg:min-h-[50%]"
           >
             <Image
               src="/assets/images/Resultado Analise Energia.svg"
@@ -120,7 +121,7 @@ export default function ResultadoAnalise() {
           {/* Emissão Energia */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="bg-blue-1 rounded-2xl p-8 h-[50%] flex flex-col justify-between"
+            className="bg-blue-1 rounded-2xl p-6 md:p-8 min-h-[180px] md:min-h-[200px] lg:min-h-[50%] flex flex-col justify-between"
           >
             <div className="text-white font-bold flex flex-col h-full justify-between">
               <p className="text-3xl">EMISSÃO</p>
@@ -133,11 +134,11 @@ export default function ResultadoAnalise() {
         </div>
 
         {/* Coluna 3: Transporte */}
-        <div className="flex flex-col gap-8 h-full">
+        <div className="flex flex-col gap-4 md:gap-8">
           {/* Transporte */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="relative rounded-2xl overflow-hidden h-[50%]"
+            className="relative rounded-2xl overflow-hidden min-h-[180px] md:min-h-[200px] lg:min-h-[50%]"
           >
             <Image
               src="/assets/images/Resultado Analise Transporte.svg"
@@ -154,10 +155,10 @@ export default function ResultadoAnalise() {
             </div>
           </motion.div>
 
-          {/* Emissão Transporte - 50% */}
+          {/* Emissão Transporte*/}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="bg-orange rounded-2xl p-8 h-[50%] flex flex-col justify-between"
+            className="bg-orange rounded-2xl p-6 md:p-8 min-h-[180px] md:min-h-[200px] lg:min-h-[50%] flex flex-col justify-between"
           >
             <div className="text-white font-bold flex flex-col h-full justify-between">
               <p className="text-3xl">EMISSÃO</p>
@@ -170,11 +171,11 @@ export default function ResultadoAnalise() {
         </div>
 
         {/* Coluna 4: Água */}
-        <div className="flex flex-col gap-8 h-full">
+        <div className="flex flex-col gap-4 md:gap-8 h-full">
           {/* Água */}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="relative rounded-2xl overflow-hidden h-[40%]"
+            className="relative rounded-2xl overflow-hidden min-h-[180px] md:min-h-[200px] lg:min-h-[35%]"
           >
             <Image
               src="/assets/images/Resultado Analise Agua.svg"
@@ -194,7 +195,7 @@ export default function ResultadoAnalise() {
           {/* Emissão Água*/}
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="bg-blue-2 rounded-2xl p-8 h-[40%] flex flex-col justify-between"
+            className="bg-blue-2 rounded-2xl p-6 md:p-8 min-h-[180px] md:min-h-[200px] lg:min-h-[35%] flex flex-col justify-between"
           >
             <div className="text-white font-bold flex flex-col h-full justify-between">
               <p className="text-3xl">EMISSÃO</p>
@@ -208,7 +209,7 @@ export default function ResultadoAnalise() {
           {/* Nova Consulta*/}
           <motion.button
             whileHover={{ scale: 1.05 }}
-            className="w-full h-[15%] bg-gradient-to-b from-green-5 via-green-3 to-green-2 rounded-2xl p-6 text-white flex items-center justify-between"
+            className="w-full min-h-[60px] md:min-h-[80px] lg:min-h-[25.5%] bg-gradient-to-b from-green-5 via-green-3 to-green-2 rounded-2xl p-6 text-white flex items-center justify-between mt-auto"
             onClick={() => router.push("/analise")}
           >
             <span className="text-xl font-bold">NOVA CONSULTA</span>
