@@ -138,7 +138,7 @@ export default function Cadastro() {
   return (
     <div className="min-h-screen flex flex-col items-start justify-center relative px-4 md:px-8 lg:px-16">
       <Image
-        src="/assets/images/Fundo Cadastro techVolt.svg"
+        src="/assets/images/Fundo Cadastro techVolt.png"
         alt="Fundo de Cadastro"
         className="absolute inset-0 z-0 w-full h-full object-cover"
         width={1920}

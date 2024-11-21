@@ -27,10 +27,10 @@ export default function CardSustentavel({
   grauSustentabilidade,
 }: CardSustavelProps) {
   const getBackgroundImage = (grau: number) => {
-    if (grau >= 100) return "/assets/images/Card da Sustentabilidade 100.svg";
-    if (grau >= 75) return "/assets/images/Card da Sustentabilidade 75.svg";
-    if (grau >= 50) return "/assets/images/Card da Sustentabilidade 50.svg";
-    return "/assets/images/Card da Sustentabilidade 49.svg";
+    if (grau >= 100) return "/assets/images/Card da Sustentabilidade 100.png";
+    if (grau >= 75) return "/assets/images/Card da Sustentabilidade 75.png";
+    if (grau >= 50) return "/assets/images/Card da Sustentabilidade 50.png";
+    return "/assets/images/Card da Sustentabilidade 49.png";
   };
 
   const dataFormatada = useMemo(() => {

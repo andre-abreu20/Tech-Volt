@@ -21,7 +21,7 @@ export default function Analise() {
   });
 
   const backgrounds = {
-    1: "/assets/images/Fundo Perguntas Analise Energia.svg",
+    1: "/assets/images/Fundo Perguntas Analise Energia.png",
     2: "/assets/images/Fundo Perguntas Analise Gasolina.svg",
     3: "/assets/images/Fundo Perguntas Analise Agua.svg",
   };

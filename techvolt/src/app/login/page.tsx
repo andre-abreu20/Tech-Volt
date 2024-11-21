@@ -31,7 +31,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center relative">
       <Image
-        src="/assets/images/Fundo Login techVolt.svg"
+        src="/assets/images/Fundo Login techVolt.png"
         alt="Fundo de Login"
         className="absolute inset-0 z-0 w-full h-full object-cover"
         width={1920}

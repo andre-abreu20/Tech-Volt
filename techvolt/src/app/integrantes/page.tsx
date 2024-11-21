@@ -9,7 +9,7 @@ export default function Integrantes() {
     <div
       className="min-h-screen flex items-center justify-center relative"
       style={{
-        backgroundImage: "url('/assets/images/Fundo Integrantes techVolt.svg')",
+        backgroundImage: "url('/assets/images/Fundo Integrantes techVolt.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -33,7 +33,7 @@ export default function Integrantes() {
           >
             <div className="relative w-48 h-48 md:w-64 md:h-64 mb-4 md:mb-6">
               <Image
-                src="/assets/images/Imagem Integrante Andre.svg"
+                src="/assets/images/Imagem Integrante Andre.png"
                 alt="André Luís"
                 fill
                 className="rounded-full object-cover border-4 border-green-1"
@@ -87,7 +87,7 @@ export default function Integrantes() {
           >
             <div className="relative w-48 h-48 md:w-64 md:h-64 mb-4 md:mb-6">
               <Image
-                src="/assets/images/Imagem Integrante Duda.svg"
+                src="/assets/images/Imagem Integrante Duda.png"
                 alt="Maria Eduarda"
                 fill
                 className="rounded-full object-cover border-4 border-green-1"

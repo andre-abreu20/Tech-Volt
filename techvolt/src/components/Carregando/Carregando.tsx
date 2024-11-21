@@ -2,7 +2,7 @@
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white">
+    <div className="fixed inset-0 flex items-center justify-center bg-burnt-yellow">
       <div className="w-[250px] h-[250px] p-[15px] flex items-center justify-center relative">
         {/* Nuvem frontal */}
         <div className="w-[250px] absolute">

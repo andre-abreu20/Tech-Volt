@@ -9,6 +9,7 @@ import { CardSustavelProps, UserData } from "@/types/types";
 import EsqueletoCard from "@/components/EsqueletoCard/EsqueletoCard";
 import Image from "next/image";
 import ProtectedRoute from "@/components/RotaProtegida/RotaProtegida";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Perfil() {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,7 @@ export default function Perfil() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { logout } = useAuth();
 
   useEffect(() => {
     setTimeout(() => {
@@ -163,7 +165,7 @@ export default function Perfil() {
                       ALTERAR DADOS
                     </Botao>
 
-                    <Botao variant="white" width="200px">
+                    <Botao variant="white" width="200px" onClick={logout}>
                       SAIR
                     </Botao>
                   </div>
