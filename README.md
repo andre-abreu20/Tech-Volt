@@ -107,6 +107,7 @@ Além do foco ambiental, a TechVolt tem um forte compromisso com a inclusão soc
 
 ## 📦 Estrutura do Projeto
 
+```bash
 techvolt/
 ├── src/
 │ ├── app/ # Páginas da aplicação
@@ -116,14 +117,4 @@ techvolt/
 │ └── types/ # Definições de tipos TypeScript
 ├── public/ # Arquivos estáticos
 └── package.json # Dependências e scripts
-
 ```
-
-Este README agora inclui informações técnicas detalhadas sobre:
-- Tecnologias utilizadas
-- Como executar o projeto
-- Scripts disponíveis
-- Estrutura do projeto
-- Configuração de variáveis de ambiente
-
-Isso deve fornecer todas as informações necessárias para que outros desenvolvedores possam entender e executar o projeto localmente.
