@@ -102,7 +102,6 @@ export default function ResultadoAnalise() {
 
         if(responseResultado.ok){
           const data = await responseResultado.json();
-          console.log(data)
           setResultado({...data});
         } 
       } catch (error) {
