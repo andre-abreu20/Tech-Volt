@@ -7,10 +7,12 @@ import { useRouter } from "next/navigation";
 import { User } from "lucide-react";
 import EsqueletoResultado from "@/components/EsqueletoResultado/EsqueletoResultado";
 import ProtectedRoute from "@/components/RotaProtegida/RotaProtegida";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function ResultadoAnalise() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { userEmail, isAuthenticated, isLoading } = useAuth();
   const formatNumber = (value: number, maxDigits: number = 3) => {
     if (value >= Math.pow(10, maxDigits)) {
       if (value >= 1000000000) {
@@ -26,15 +28,25 @@ export default function ResultadoAnalise() {
     return value.toString();
   };
 
-  const [resultado] = useState({
-    nome: "JOÃO DE ABREU",
-    energia: 100,
-    transporte: 100,
-    agua: 100,
-    grauSustentabilidade: 100,
-    co2Agua: 10,
-    co2Energia: 10,
-    co2Transporte: 10,
+  const [usuario, setUsuario] = useState({
+    nome: "",
+    email: "",
+    senha: "",
+    telefone: "",
+    dataNasc: ""  
+  });
+
+  const [resultado, setResultado] = useState({
+    energiaKwh: 0,
+    energiaEmissoes: 0,
+    quantidadeL: 0,
+    aguaEmissoes: 0,
+    distanciaKm: 0,
+    combustivel: "",
+    veiculoEmissoes: 0,
+    grauSustentab: 0,
+    somaEmissao: 0,
+    data: ""
   });
 
   const getBackgroundImage = (grau: number) => {
@@ -47,12 +59,65 @@ export default function ResultadoAnalise() {
     return "/assets/images/Resultado Analise Sustentabilidade 49.png";
   };
 
+  const formatGrau = (grau: number): string => {
+    if (grau >= 100) return "100";
+    return grau.toFixed(2);
+  };
+
   useEffect(() => {
-    // Simula o carregamento dos dados
+    const fetchData = async () => {
+      try {
+        if (!userEmail) {
+          return;
+        }
+
+        const responseGrau = await fetch(`http://localhost:8080/usuario/grau/inserir/${userEmail}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({}),
+        });
+
+        if (!responseGrau.ok) {
+          throw new Error('Erro ao calcular grau de sustentabilidade');
+        }
+
+        setLoading(true);
+
+        const response = await fetch(`http://localhost:8080/usuario/${userEmail}`, {
+          method: "GET",
+          mode: "cors"
+        });
+
+        if(response.ok){
+          const data = await response.json();
+          setUsuario({...data});
+        }
+        
+        const responseResultado = await fetch(`http://localhost:8080/usuario/calculo/${userEmail}`, {
+          method: "GET",
+          mode: "cors"
+        });
+
+        if(responseResultado.ok){
+          const data = await responseResultado.json();
+          console.log(data)
+          setResultado({...data});
+        } 
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    };
+
+    if (!isLoading) {
+      fetchData();
+    }
+
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, []);
+  }, [userEmail, isAuthenticated, isLoading]);
 
   if (loading) {
     return <EsqueletoResultado />;
@@ -72,7 +137,7 @@ export default function ResultadoAnalise() {
             <div className="flex flex-col items-center justify-center h-full">
               <User className="w-12 h-12 text-white mb-2" />
               <h3 className="text-white text-xl font-bold text-center">
-                {resultado.nome}
+                {usuario.nome}
               </h3>
             </div>
           </motion.div>
@@ -83,7 +148,7 @@ export default function ResultadoAnalise() {
             className="relative rounded-2xl overflow-hidden min-h-[200px] md:min-h-[250px] lg:min-h-[70%]"
           >
             <Image
-              src={getBackgroundImage(resultado.grauSustentabilidade)}
+              src={getBackgroundImage((resultado.grauSustentab))}
               alt="Card da Sustentabilidade"
               fill
               className="object-cover"
@@ -91,7 +156,7 @@ export default function ResultadoAnalise() {
             />
             <div className="absolute inset-0 flex flex-col items-center justify-between p-8 text-white">
               <span className="text-6xl font-bold">
-                {Number(resultado.grauSustentabilidade)}%
+                {formatGrau(resultado.grauSustentab)}%
               </span>
               <span className="text-2xl font-bold">SUSTENTÁVEL</span>
             </div>
@@ -113,7 +178,7 @@ export default function ResultadoAnalise() {
             />
             <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
               <h3 className="text-4xl font-bold">
-                {formatNumber(resultado.energia)}{" "}
+                {formatNumber(resultado.energiaKwh)}{" "}
                 <span className="text-xl">KWH</span>
               </h3>
               <p className="text-xl">ENERGIA</p>
@@ -128,7 +193,7 @@ export default function ResultadoAnalise() {
             <div className="text-white font-bold flex flex-col h-full justify-between">
               <p className="text-3xl">EMISSÃO</p>
               <p className="text-7xl">
-                {formatNumber(resultado.co2Energia)}{" "}
+                {formatNumber(resultado.energiaEmissoes)}{" "}
                 <span className="text-3xl">CO2</span>
               </p>
             </div>
@@ -150,7 +215,7 @@ export default function ResultadoAnalise() {
             />
             <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
               <h3 className="text-4xl font-bold">
-                {formatNumber(resultado.transporte)}{" "}
+                {formatNumber(resultado.distanciaKm)}{" "}
                 <span className="text-xl">KM</span>
               </h3>
               <p className="text-xl">TRANSPORTE</p>
@@ -165,7 +230,7 @@ export default function ResultadoAnalise() {
             <div className="text-white font-bold flex flex-col h-full justify-between">
               <p className="text-3xl">EMISSÃO</p>
               <p className="text-7xl">
-                {formatNumber(resultado.co2Transporte)}{" "}
+                {formatNumber(resultado.veiculoEmissoes)}{" "}
                 <span className="text-3xl">CO2</span>
               </p>
             </div>
@@ -187,7 +252,7 @@ export default function ResultadoAnalise() {
             />
             <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
               <h3 className="text-4xl font-bold">
-                {formatNumber(resultado.agua)}{" "}
+                {formatNumber(resultado.quantidadeL)}{" "}
                 <span className="text-xl">L</span>
               </h3>
               <p className="text-xl">ÁGUA</p>
@@ -202,7 +267,7 @@ export default function ResultadoAnalise() {
             <div className="text-white font-bold flex flex-col h-full justify-between">
               <p className="text-3xl">EMISSÃO</p>
               <p className="text-7xl">
-                {formatNumber(resultado.co2Agua)}{" "}
+                {formatNumber(resultado.aguaEmissoes)}{" "}
                 <span className="text-3xl">CO2</span>
               </p>
             </div>
