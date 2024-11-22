@@ -5,31 +5,72 @@ import Botao from "@/components/Botao/Botao";
 import EsqueletoPerfil from "@/components/EsqueletoPerfil/EsqueletoPerfil";
 import CardSustentavel from "@/components/CardSustentavel/CardSustentavel";
 import { motion, AnimatePresence } from "framer-motion";
-import { CardSustavelProps, UserData } from "@/types/types";
+import { RelatorioData } from "@/types/types";
 import EsqueletoCard from "@/components/EsqueletoCard/EsqueletoCard";
 import Image from "next/image";
 import ProtectedRoute from "@/components/RotaProtegida/RotaProtegida";
 import { useAuth } from "@/hooks/useAuth";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Modal from "@/components/Modal/Modal";
+import ModalEditarPerfil from "@/components/ModalEditarPerfil/ModalEditarPerfil";
 
 export default function Perfil() {
   const [loading, setLoading] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  const [userData, setUserData] = useState<UserData | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { logout } = useAuth();
+  const { logout, checkAuth } = useAuth();
+  const router = useRouter();
+  const [usuario, setUsuario] = useState({
+    nome: "",
+    email: "",
+    senha: "",
+    telefone: "",
+    dataNasc: ""      
+  });
+  const { userEmail } = useAuth();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [relatorios, setRelatorios] = useState<RelatorioData[]>([]);
+  const [loadingRelatorios, setLoadingRelatorios] = useState(true);
+  const [currentEmail, setCurrentEmail] = useState(userEmail);
 
   useEffect(() => {
-    setTimeout(() => {
-      setUserData({
-        nome: "JOAO DE ABREU",
-        email: "joao@email.com",
-        telefone: "11974638391",
-        dataNascimento: "12/03/2002",
-        senha: "12345678",
-      });
-      setLoading(false);
-    }, 2000);
+    const fetchData = async () => {
+      try {
+        const emailToUse = userEmail;
+        if (!emailToUse) return;
+        
+        setLoading(true);
+        const response = await fetch(`http://localhost:8080/usuario/${emailToUse}`);
+        
+        if (!response.ok) {
+          throw new Error('Erro ao carregar dados do usuário');
+        }
+        
+        const data = await response.json();
+        setUsuario(data);
+
+        const relatoriosResponse = await fetch(`http://localhost:8080/usuario/relatorio/${emailToUse}`);
+        
+        if (!relatoriosResponse.ok) {
+          throw new Error('Erro ao carregar histórico de análises');
+        }
+        
+        const relatoriosData = await relatoriosResponse.json();
+        setRelatorios(relatoriosData);
+      } catch (error) {
+        console.log(error)
+        toast.error("Erro ao carregar dados");
+      } finally {
+        setLoading(false);
+        setLoadingRelatorios(false);
+      }
+    };
+
+    fetchData();
+
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
       if (window.innerWidth >= 768) {
@@ -40,38 +81,46 @@ export default function Perfil() {
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  }, [currentEmail, userEmail]);
 
-  const dadosTeste: CardSustavelProps[] = [
-    {
-      energia: 100,
-      transporte: 95,
-      agua: 98,
-      data: "23/01/2024",
-      grauSustentabilidade: 100, // Card 100%
-    },
-    {
-      energia: 80,
-      transporte: 75,
-      agua: 85,
-      data: "22/01/2024",
-      grauSustentabilidade: 80, // Card 75%
-    },
-    {
-      energia: 55,
-      transporte: 60,
-      agua: 50,
-      data: "21/01/2024",
-      grauSustentabilidade: 55, // Card 50%
-    },
-    {
-      energia: 30,
-      transporte: 25,
-      agua: 35,
-      data: "20/01/2024",
-      grauSustentabilidade: 30, // Card -50%
-    },
-  ];
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      await checkAuth();
+      toast.success("Logout realizado com sucesso!");
+      await new Promise(resolve => setTimeout(resolve, 0));
+      router.push("/login");
+    } catch (error) {
+      console.log(error)
+      toast.error("Erro ao realizar logout");
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      if (!userEmail) return;
+      
+      const response = await fetch(`http://localhost:8080/usuario/${userEmail}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao deletar usuário');
+      }
+
+      toast.success("Conta deletada com sucesso!");
+      await logout();
+      router.push("/login");
+    } catch (error) {
+      toast.error("Erro ao deletar conta");
+      console.error(error);
+    }
+  };
+
+  const formatarData = (data: string) => {
+    return new Date(data).toLocaleDateString('pt-BR');
+  };
 
   if (loading) {
     return (
@@ -109,22 +158,22 @@ export default function Perfil() {
                 </div>
 
                 <h1 className="text-2xl font-bold text-center break-words w-full">
-                  {userData?.nome}
+                  {usuario?.nome}
                 </h1>
 
                 <div className="flex flex-col justify-start gap-3 w-full">
                   <div className="flex flex-col space-y-3 w-full">
                     <div className="flex flex-col text-sm">
                       <span className="font-semibold">Email:</span>
-                      <span className="truncate" title={userData?.email}>
-                        {userData?.email}
+                      <span className="truncate" title={usuario?.email}>
+                        {usuario?.email}
                       </span>
                     </div>
 
                     <div className="flex flex-col text-sm">
                       <span className="font-semibold">Telefone:</span>
-                      <span className="truncate" title={userData?.telefone}>
-                        {userData?.telefone}
+                      <span className="truncate" title={usuario?.telefone}>
+                        {usuario?.telefone}
                       </span>
                     </div>
 
@@ -132,9 +181,9 @@ export default function Perfil() {
                       <span className="font-semibold">Data de Nascimento:</span>
                       <span
                         className="truncate"
-                        title={userData?.dataNascimento}
+                        title={usuario?.dataNasc}
                       >
-                        {userData?.dataNascimento}
+                        {usuario?.dataNasc}
                       </span>
                     </div>
 
@@ -142,7 +191,7 @@ export default function Perfil() {
                       <span className="font-semibold">Senha:</span>
                       <div className="flex items-center gap-2">
                         <span className="truncate">
-                          {showPassword ? userData?.senha : "********"}
+                          {showPassword ? usuario?.senha : "********"}
                         </span>
                         <button
                           onClick={() => setShowPassword(!showPassword)}
@@ -161,16 +210,24 @@ export default function Perfil() {
 
                 <div className="flex flex-col w-full mt-8">
                   <div className="flex flex-col items-center gap-4 mb-32">
-                    <Botao variant="white" width="200px">
+                    <Botao 
+                      variant="white" 
+                      width="200px"
+                      onClick={() => setIsEditModalOpen(true)}
+                    >
                       ALTERAR DADOS
                     </Botao>
 
-                    <Botao variant="white" width="200px" onClick={logout}>
+                    <Botao variant="white" width="200px" onClick={handleLogout}>
                       SAIR
                     </Botao>
                   </div>
 
-                  <Botao variant="white" width="200px">
+                  <Botao 
+                    variant="white" 
+                    width="200px" 
+                    onClick={() => setIsDeleteModalOpen(true)}
+                  >
                     APAGAR CONTA
                   </Botao>
                 </div>
@@ -196,11 +253,30 @@ export default function Perfil() {
             Histórico de Análises
           </h1>
 
-          {dadosTeste.length > 0 ? (
+          {loadingRelatorios ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
-              {dadosTeste.map((dados, index) => (
-                <CardSustentavel key={index} {...dados} />
+              {[1, 2, 3, 4].map((_, index) => (
+                <EsqueletoCard key={index} />
               ))}
+            </div>
+          ) : relatorios.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
+              {relatorios.map((relatorio, index) => {
+                return (
+                  <CardSustentavel
+                    key={index}
+                    energia={relatorio.energiaKwh}
+                    agua={relatorio.quantidadeL}
+                    transporte={relatorio.distanciaKm}
+                    combustivel={relatorio.combustivel}
+                    data={formatarData(relatorio.data)}
+                    grauSustentabilidade={relatorio.grauSustentab}
+                    emissaoEnergia={relatorio.energiaEmissoes}
+                    emissaoTransporte={relatorio.veiculoEmissoes}
+                    emissaoAgua={relatorio.aguaEmissoes}
+                  />
+                );
+              })}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center min-h-[calc(100vh-200px)]">
@@ -218,6 +294,22 @@ export default function Perfil() {
           )}
         </div>
       </div>
+
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeleteUser}
+        title="Confirmar Exclusão"
+        message="Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita."
+      />
+
+      <ModalEditarPerfil
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        userData={usuario}
+        setUsuario={setUsuario}
+        setCurrentEmail={setCurrentEmail}
+      />
     </ProtectedRoute>
   );
 }
