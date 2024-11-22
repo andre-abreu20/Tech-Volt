@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Input from "@/components/Input/Input";
 import { motion, AnimatePresence } from "framer-motion";
 import Botao from "@/components/Botao/Botao";
@@ -255,6 +255,34 @@ export default function Analise() {
         );
     }
   };
+
+  useEffect(() => {
+    const verificarAnalise = async () => {
+      try {
+        if (!userEmail) {
+          toast.error("Usuário não autenticado");
+          router.push("/");
+          return;
+        }
+
+        const response = await fetch(`http://localhost:8080/usuario/verifica/${userEmail}`, {
+          method: "GET",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (response.ok) {
+          toast.error("Você já realizou uma análise hoje. Tente novamente amanhã!");
+          router.push("/");
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    };
+
+    verificarAnalise();
+  }, [userEmail, router]);
 
   return (
     <ProtectedRoute>
