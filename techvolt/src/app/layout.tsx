@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import NavModal from "@/components/NavModal/NavModal";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
   title: "Tech Volt",
@@ -15,12 +16,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
+    <html>
       <body>
-        <Toaster position="bottom-center" />
-        <NavModal />
-        {children}
+        <AuthProvider>
+          <div className="min-h-screen relative">
+            <NavModal />
+            {children}
+          </div>
+          <Toaster position="bottom-center" />
+        </AuthProvider>
       </body>
     </html>
   );
 }
+
+
+
