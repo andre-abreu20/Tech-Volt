@@ -11,6 +11,8 @@ Valorizamos a energia como força vital que impulsiona a economia global e suste
 
 O site esta disponível em: https://techvolt.vercel.app/
 
+## 📁 Api Local de Java: https://github.com/dudabrigidio/TechVolt-api.git
+
 ## 👥 Integrantes do Projeto
 
 ### André Luís Mesquita Abreu
