@@ -27,6 +27,7 @@ export default function Cadastro() {
     dataNasc: "",
     telefone: "",
   });
+  
 
   function validateField(name: string, value: string) {
     switch (name) {
@@ -132,7 +133,7 @@ export default function Cadastro() {
         .toISOString()
         .split('T')[0];
 
-      const response = await fetch("http://localhost:8080/usuario/inserir", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/inserir`, {
         method: "POST",
         mode: "cors",
         headers: {

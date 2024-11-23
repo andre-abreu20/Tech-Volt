@@ -43,7 +43,7 @@ export default function Perfil() {
         if (!emailToUse) return;
         
         setLoading(true);
-        const response = await fetch(`http://localhost:8080/usuario/${emailToUse}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/${emailToUse}`);
         
         if (!response.ok) {
           throw new Error('Erro ao carregar dados do usuário');
@@ -52,14 +52,24 @@ export default function Perfil() {
         const data = await response.json();
         setUsuario(data);
 
-        const relatoriosResponse = await fetch(`http://localhost:8080/usuario/relatorio/${emailToUse}`);
+        const relatoriosResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/relatorio/${emailToUse}`);
         
         if (!relatoriosResponse.ok) {
           throw new Error('Erro ao carregar histórico de análises');
         }
         
         const relatoriosData = await relatoriosResponse.json();
-        setRelatorios(relatoriosData);
+        const relatoriosAjustados = relatoriosData.map((relatorio: RelatorioData) => ({
+          ...relatorio,
+          data: new Date(new Date(relatorio.data).getTime() + 24 * 60 * 60 * 1000).toISOString()
+        }));
+        
+        const relatoriosUnicos = relatoriosAjustados.filter((relatorio: RelatorioData, index: number, self: RelatorioData[]) =>
+          index === self.findIndex((r) => new Date(r.data).getTime() === new Date(relatorio.data).getTime())
+        );
+        
+        setRelatorios(relatoriosUnicos);
+        
       } catch (error) {
         console.log(error)
         toast.error("Erro ao carregar dados");
@@ -101,7 +111,7 @@ export default function Perfil() {
     try {
       if (!userEmail) return;
       
-      const response = await fetch(`http://localhost:8080/usuario/${userEmail}`, {
+      const response = await fetch(`http://localhost:8080/usuario/excluir/${userEmail}`, {
         method: 'DELETE',
       });
 

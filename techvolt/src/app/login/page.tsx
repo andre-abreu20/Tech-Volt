@@ -24,7 +24,7 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/usuario/login", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/login`, {
         method: "POST",
         mode: "cors",
         headers: {

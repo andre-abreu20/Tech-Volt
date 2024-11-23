@@ -71,7 +71,7 @@ export default function ResultadoAnalise() {
           return;
         }
 
-        const responseGrau = await fetch(`http://localhost:8080/usuario/grau/inserir/${userEmail}`, {
+        const responseGrau = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/grau/inserir/${userEmail}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ export default function ResultadoAnalise() {
 
         setLoading(true);
 
-        const response = await fetch(`http://localhost:8080/usuario/${userEmail}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/${userEmail}`, {
           method: "GET",
           mode: "cors"
         });
@@ -95,14 +95,13 @@ export default function ResultadoAnalise() {
           setUsuario({...data});
         }
         
-        const responseResultado = await fetch(`http://localhost:8080/usuario/calculo/${userEmail}`, {
+        const responseResultado = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/calculo/${userEmail}`, {
           method: "GET",
           mode: "cors"
         });
 
         if(responseResultado.ok){
           const data = await responseResultado.json();
-          console.log(data)
           setResultado({...data});
         } 
       } catch (error) {
