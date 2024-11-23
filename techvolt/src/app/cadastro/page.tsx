@@ -14,7 +14,7 @@ export default function Cadastro() {
     email: "",
     senha: "",
     confirmarSenha: "",
-    data_nascimento: "",
+    dataNasc: "",
     telefone: "",
     aceitarTermos: false,
   });
@@ -24,9 +24,10 @@ export default function Cadastro() {
     email: "",
     senha: "",
     confirmarSenha: "",
-    data_nascimento: "",
+    dataNasc: "",
     telefone: "",
   });
+  
 
   function validateField(name: string, value: string) {
     switch (name) {
@@ -59,7 +60,7 @@ export default function Cadastro() {
           return "As senhas não coincidem";
         }
         break;
-      case "data_nascimento":
+      case "dataNasc":
         const hoje = new Date();
         const dataNascimento = new Date(value);
         const idade = hoje.getFullYear() - dataNascimento.getFullYear();
@@ -97,7 +98,7 @@ export default function Cadastro() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     let hasErrors = false;
@@ -114,7 +115,7 @@ export default function Cadastro() {
         }
       }
     });
-
+    
     setErrors(newErrors);
 
     if (hasErrors) {
@@ -126,7 +127,40 @@ export default function Cadastro() {
       toast.error("Você precisa aceitar os termos de uso para continuar");
       return;
     }
-    toast.success("Formulário válido! Prosseguindo com o cadastro...");
+
+    try {
+      const dataFormatada = new Date(formData.dataNasc)
+        .toISOString()
+        .split('T')[0];
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/inserir`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          nome: formData.nome,
+          email: formData.email,
+          senha: formData.senha,
+          dataNasc: dataFormatada,
+          telefone: formData.telefone.replace(/\D/g, ''),
+        }),
+      });
+
+      const responseText = await response.text();
+
+      if (!response.ok) {
+        throw new Error(responseText || `Erro ${response.status}: ${response.statusText}`);
+      }
+
+      toast.success("Cadastro realizado com sucesso!");
+      router.push("/login");
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+      toast.error("Erro ao realizar cadastro: " + errorMessage);
+    }
   };
 
   const router = useRouter();
@@ -198,11 +232,11 @@ export default function Cadastro() {
 
             <Input
               label="Data de Nascimento"
-              name="data_nascimento"
+              name="dataNasc"
               type="date"
-              value={formData.data_nascimento}
-              onChange={(value) => handleChange("data_nascimento", value)}
-              error={errors.data_nascimento}
+              value={formData.dataNasc}
+              onChange={(value) => handleChange("dataNasc", value)}
+              error={errors.dataNasc}
             />
 
             <Input

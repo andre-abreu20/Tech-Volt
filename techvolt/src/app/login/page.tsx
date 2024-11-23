@@ -1,27 +1,57 @@
 "use client";
 
-import Input from "@/components/Input/Input";
 import { useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import Botao from "@/components/Botao/Botao";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import Input from "@/components/Input/Input";
+import toast from "react-hot-toast";
+import Botao from "@/components/Botao/Botao";
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, checkAuth } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Após validar as credenciais
-    login(formData.email);
-    router.push("/analise");
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/login`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          senha: formData.password,
+        }),
+      });
+
+      if (response.status >= 200 && response.status < 300) {
+        await login(formData.email);
+        await checkAuth();
+        toast.success("Login realizado com sucesso!");
+        await new Promise(resolve => setTimeout(resolve, 0));
+        router.push("/analise");
+        return;
+      }
+
+      toast.error("Email ou senha incorretos");
+    } catch (error) {
+      console.log(error);
+      toast.error("Email ou senha incorretos");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleRedirect = () => {
@@ -58,7 +88,7 @@ export default function Login() {
             placeholder="Digite seu email"
           />
 
-          <Input
+          <Input 
             label="Senha"
             name="password"
             type="password"
@@ -80,8 +110,13 @@ export default function Login() {
               ?
             </p>
           </div>
-          <Botao type="submit" width="auto">
-            Entrar
+          <Botao
+            type="submit"
+            disabled={isLoading}
+            width="auto"
+            variant="default"
+          >
+            {isLoading ? "Carregando..." : "Entrar"}
           </Botao>
         </form>
       </motion.div>

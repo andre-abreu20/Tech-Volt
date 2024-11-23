@@ -19,12 +19,40 @@ const mesesPorExtenso = [
   "Dezembro",
 ];
 
+// Adicione esta função de formatação
+const formatNumber = (num: number, isWater: boolean = false): string => {
+  if (isWater) {
+    if (num > 10000) {
+      return '10000+';
+    }
+    return num.toFixed(0);
+  }
+
+  // Para outros valores
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(2) + 'M';
+  } else if (num >= 1000) {
+    return (num / 1000).toFixed(2) + 'K';
+  }
+  return num.toFixed(2);
+};
+
+// Adicione esta função de formatação para o grau 
+const formatGrau = (grau: number): string => {
+  if (grau >= 100) return "100";
+  return grau.toFixed(2);
+};
+
 export default function CardSustentavel({
   energia,
   transporte,
   agua,
   data,
   grauSustentabilidade,
+  emissaoEnergia,
+  emissaoTransporte,
+  emissaoAgua,
+  combustivel,
 }: CardSustavelProps) {
   const getBackgroundImage = (grau: number) => {
     if (grau >= 100) return "/assets/images/Card da Sustentabilidade 100.png";
@@ -66,7 +94,7 @@ export default function CardSustentavel({
             transition={{ delay: 0.1 }}
             className="flex items-center text-4xl font-bold"
           >
-            <span>{grauSustentabilidade}%</span>
+            <span>{formatGrau(grauSustentabilidade)}%</span>
             <span className="ml-4 text-2xl">Sustentável</span>
           </motion.div>
           
@@ -89,15 +117,15 @@ export default function CardSustentavel({
       >
         <div className="flex justify-between items-center border-b pb-4">
           <span className="text-gray-600">Energia: {energia} KWH</span>
-          <span className="text-gray-500">{10} co²</span>
+          <span className="text-gray-500">{formatNumber(emissaoEnergia)} co²</span>
         </div>
         <div className="flex justify-between items-center border-b pb-4">
-          <span className="text-gray-600">Transporte: {transporte}km Gasolina</span>
-          <span className="text-gray-500">{10} co²</span>
+          <span className="text-gray-600">Transporte: {transporte}km {combustivel}</span>
+          <span className="text-gray-500">{formatNumber(emissaoTransporte)} co²</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-gray-600">Água: {agua}L</span>
-          <span className="text-gray-500">{10} co²</span>
+          <span className="text-gray-600">Água: {formatNumber(agua)}L</span>
+          <span className="text-gray-500">{formatNumber(emissaoAgua)} co²</span>
         </div>
       </motion.div>
     </motion.div>
