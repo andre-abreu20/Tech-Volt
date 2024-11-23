@@ -265,7 +265,7 @@ export default function Analise() {
           return;
         }
 
-        const response = await fetch(`http://localhost:8080/usuario/verifica/${userEmail}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/verifica/${userEmail}`, {
           method: "GET",
           headers: {
             "Accept": "application/json"

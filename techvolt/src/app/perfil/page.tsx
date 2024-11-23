@@ -43,7 +43,7 @@ export default function Perfil() {
         if (!emailToUse) return;
         
         setLoading(true);
-        const response = await fetch(`http://localhost:8080/usuario/${emailToUse}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/${emailToUse}`);
         
         if (!response.ok) {
           throw new Error('Erro ao carregar dados do usuário');
@@ -52,7 +52,7 @@ export default function Perfil() {
         const data = await response.json();
         setUsuario(data);
 
-        const relatoriosResponse = await fetch(`http://localhost:8080/usuario/relatorio/${emailToUse}`);
+        const relatoriosResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/usuario/relatorio/${emailToUse}`);
         
         if (!relatoriosResponse.ok) {
           throw new Error('Erro ao carregar histórico de análises');
