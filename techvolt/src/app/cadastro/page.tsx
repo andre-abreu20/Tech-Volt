@@ -27,6 +27,7 @@ export default function Cadastro() {
     dataNasc: "",
     telefone: "",
   });
+  
 
   function validateField(name: string, value: string) {
     switch (name) {
