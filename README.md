@@ -9,7 +9,7 @@ Nosso propósito é trazer uma nova maneira de salvar nosso planeta através de 
 ### 💚 Valores
 Valorizamos a energia como força vital que impulsiona a economia global e sustenta o modo de vida moderno. Entendemos que a dependência de combustíveis fósseis está levando a uma crise climática sem precedentes, onde a emissão de gases de efeito estufa são a principal causa do aquecimento global.
 
-O site esta disponível em: https://techvolt.vercel.app/
+O site esta disponível em: https://tech-volt.vercel.app/
 
 ## 📁 Api Local de Java: https://github.com/dudabrigidio/TechVolt-api.git
 
