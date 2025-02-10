@@ -21,7 +21,7 @@ O site esta disponível em: https://tech-volt.vercel.app/
 - [GitHub](https://github.com/andre-abreu20)
 - [LinkedIn](https://www.linkedin.com/in/andrémesquita/)
 
-### Maria Eduarda Brígido
+### Maria Eduarda Brigidio
 - **RM:** 558575
 - **Turma:** 1TDSPH
 - [GitHub](https://github.com/dudabrigidio)
